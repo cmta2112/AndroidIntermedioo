@@ -3,8 +3,11 @@ package pe.edu.cibertec.camera;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -14,10 +17,20 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.SimpleFormatter;
+
 public class MainActivity extends AppCompatActivity {
 
     static final int REQUEST_CAMERA = 1;
     static final int REQUEST_TAKE_PICTURE = 2 ;
+
+    String currentPathImage; // Ruta absoluta de la imagen
     Button btCamera;
     ImageView ivPhoto;
 
@@ -54,16 +67,58 @@ public class MainActivity extends AppCompatActivity {
 
             } else{
 
+                File photofile = null;
+                try {
+                    photofile = createImge();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
                 startActivityForResult(cameraIntent,REQUEST_TAKE_PICTURE);
             }
         }
 
     }
 
+    private File createImge() throws IOException {
+        // para crear el archivo , se genera primero un nombre,// pPARA CALCULAR FECHA Y AHORA DEL MOMENTO
+
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+
+        //asignarle un directorio de almacenamiento
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+
+        //crear el archivo
+        File image = File.createTempFile(
+                imageFileName, // nombre
+                ".jpg",
+                storageDir) ;
+
+        currentPathImage = image.getAbsolutePath();
+        return image;
+    }
+
+
+
     private void requestPermission() {
         ActivityCompat.requestPermissions(this,new String[]{ Manifest.permission.CAMERA}, REQUEST_CAMERA);
     }
 
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent information) {
+        //super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_TAKE_PICTURE && resultCode == RESULT_OK){
+           // Glide.with(this).load(currentPathImage).into(ivPhoto);
+            Bitmap bitmap = (Bitmap) information.getExtras().get("data");
+            ivPhoto.setImageBitmap(bitmap);
+        }
+
+
+    }
+    // PARA GUARDAR UNA FOTO SE TIENE Q CREAR UN ARCHIVO
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
        // super.onRequestPermissionsResult(requestCode, permissions, grantResults);
