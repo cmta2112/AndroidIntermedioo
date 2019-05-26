@@ -49,7 +49,8 @@ public class MainActivity extends AppCompatActivity {
             if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CAMERA)
                     != PackageManager.PERMISSION_GRANTED){
 
-                requestCameraPermission();
+                requestPermission();
+
 
             } else{
 
@@ -59,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void requestCameraPermission() {
+    private void requestPermission() {
         ActivityCompat.requestPermissions(this,new String[]{ Manifest.permission.CAMERA}, REQUEST_CAMERA);
     }
 
@@ -68,7 +69,8 @@ public class MainActivity extends AppCompatActivity {
        // super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         if(requestCode ==  REQUEST_CAMERA){
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){ // SABER SI ESTAN DANDO PERMISOS
+            if (//grantResults.length > 0 &&
+             grantResults[0] == PackageManager.PERMISSION_GRANTED){ // SABER SI ESTAN DANDO PERMISOS
                 Toast.makeText(MainActivity.this, "Se dio permiso", Toast.LENGTH_SHORT).show();
 
                 takePicture();

@@ -3,7 +3,7 @@
     package="pe.edu.cibertec.camera">
 
     <uses-permission android:name="android.permission.CAMERA"/>
-
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
 
     <application
         android:allowBackup="true"
