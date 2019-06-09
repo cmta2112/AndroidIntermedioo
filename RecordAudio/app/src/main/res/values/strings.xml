@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">RecordAudio</string>
+    <string name="btRecord">GRABAR</string>
+    <string name="btPlay">PLAY</string>
+</resources>
