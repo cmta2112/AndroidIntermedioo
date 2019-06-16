@@ -55,6 +55,8 @@ class JobAdapter extends RecyclerView.Adapter<JobAdapter.JobPrototype> {
 
 
 
+
+
         public JobPrototype(@NonNull View itemView) {
             super(itemView);
 
