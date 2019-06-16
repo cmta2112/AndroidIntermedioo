@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Jobs</string>
+    <string name="hint_job">  Ingrese la pelicula</string>
+    <string name="bt_search">Buscar</string>
+    <string name="tvTitle">Titulo</string>
+    <string name="tvdescription">Descripcion</string>
+    <string name="tvcompany">Empresa</string>
+</resources>
