@@ -23,7 +23,7 @@ public class Job {
     private String description;
 
 
-    @SerializedName("logo")
+    @SerializedName("company_logo")
     @ColumnInfo(name = "company_logo")
     private String logo;
 

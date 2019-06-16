@@ -11,6 +11,6 @@ import java.util.List;
 @Dao
 public interface JobDao {
 
-    @Query("select title, company, description,company_logo  from job")
+    @Query("select title, company, description,company_logo from job")
     List<Job> getAll();
 }

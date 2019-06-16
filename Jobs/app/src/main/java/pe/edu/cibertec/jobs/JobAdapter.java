@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import org.sufficientlysecure.htmltextview.HtmlTextView;
+
 import java.util.List;
 
 class JobAdapter extends RecyclerView.Adapter<JobAdapter.JobPrototype> {
@@ -38,8 +40,15 @@ class JobAdapter extends RecyclerView.Adapter<JobAdapter.JobPrototype> {
 
         jobPrototype.tvtitle.setText(items.get(position).getTitle());
         jobPrototype.tvCompany.setText(items.get(position).getCompany());
-        jobPrototype.tvDescription.setText(items.get(position).getDescription());
-        jobPrototype.tvDescription.setText(items.get(position).getDescription());
+        //jobPrototype.tvDescription.setText(items.get(position).getDescription());
+       jobPrototype.tvDescription.setHtml(items.get(position).getDescription());
+
+        Glide.with(jobPrototype.itemView)
+                .load(items.get(position).getLogo())
+                //  .load("https://jobs.github.com/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBcHRaIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--264383d8fc559da0154c3c019f9e3dda5509f32f/Otto_Logo_300dpi_jpg.jpg")
+                .into(jobPrototype.ivlogo);
+
+
 
     }
 
@@ -50,11 +59,9 @@ class JobAdapter extends RecyclerView.Adapter<JobAdapter.JobPrototype> {
 
     public class JobPrototype extends RecyclerView.ViewHolder {
 
-        TextView tvtitle, tvCompany, tvDescription;
+        TextView tvtitle, tvCompany;
+        HtmlTextView tvDescription;
         ImageView ivlogo;
-
-
-
 
 
         public JobPrototype(@NonNull View itemView) {
@@ -62,8 +69,8 @@ class JobAdapter extends RecyclerView.Adapter<JobAdapter.JobPrototype> {
 
             tvtitle=itemView.findViewById(R.id.tvTitle);
             tvCompany = itemView.findViewById(R.id.tvCompany);
+        //    tvDescription = itemView.findViewById(R.id.tvDescription);
             tvDescription = itemView.findViewById(R.id.tvDescription);
-
             ivlogo = itemView.findViewById(R.id.ivLogo);
 
 
