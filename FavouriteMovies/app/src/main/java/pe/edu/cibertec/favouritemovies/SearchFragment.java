@@ -42,7 +42,7 @@ public class SearchFragment extends Fragment {
     RecyclerView rvJobs;
     //JobAdapter adapter;
     ProgressBar pbLoad;
-    List<Movie> items;
+   List<Movie> items;
 
     public SearchFragment() {
         // Required empty public constructor
@@ -97,6 +97,8 @@ public class SearchFragment extends Fragment {
                             tvTitle.setText(movie.getTitle());
                             tvYear.setText(movie.getYear());
                             tvPlot.setText(movie.getPlot());
+
+
                         }
                     }
 
@@ -114,15 +116,19 @@ public class SearchFragment extends Fragment {
 btFavorite.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
-
         Movie movie = new Movie();
         movie.setTitle(tvTitle.getText().toString());
         movie.setYear(tvYear.getText().toString());
+
+        AppDatabase.getInstance(v.getContext()).movieDao().insert(movie);
+
+       // items.add(movie);
+
       //  movie.setPlot(tvPlot.getText().toString());
 
         //new taskaddmovie.executemovie();
-       // AppDatabase.getInstance(v.getContext()).movieDao().insert(items.add(movie))
-        AppDatabase.getInstance(v.getContext()).movieDao().insert(items.add(movie));
+
+      //AppDatabase.getInstance(v.getContext()).movieDao().insert(items.add(movie));
     }
 });
     }

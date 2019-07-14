@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -25,7 +26,6 @@ public class FavouriteFragment extends Fragment {
     FavouriteAdapter adapter;
     List<Movie> items;
 
-
     public FavouriteFragment() {
         // Required empty public constructor
     }
@@ -35,22 +35,27 @@ public class FavouriteFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_favourite, container, false);
+
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        rvFavorites = view.findViewById(R.id.rvFavorites);
+      rvFavorites = view.findViewById(R.id.rvFavorites);
         loadItems(view);
     }
 
-    private void loadItems(View view) {
+    public void loadItems(View view) {
 
         items = AppDatabase.getInstance(view.getContext()).movieDao().getAll();
         adapter = new FavouriteAdapter(items);
 
+
         rvFavorites.setAdapter(adapter);
         rvFavorites.setLayoutManager(new LinearLayoutManager(view.getContext()));
     }
+
+
+
 }
